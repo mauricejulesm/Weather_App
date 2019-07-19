@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.example.s1719024_weatherapp"
+        applicationId "com.jules.maurice.s1719024_weatherapp"
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1

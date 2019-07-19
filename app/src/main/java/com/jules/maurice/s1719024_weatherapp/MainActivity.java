@@ -1,4 +1,4 @@
-package com.example.s1719024_weatherapp;
+package com.jules.maurice.s1719024_weatherapp;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

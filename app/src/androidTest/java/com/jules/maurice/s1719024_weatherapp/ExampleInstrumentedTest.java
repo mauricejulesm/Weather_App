@@ -1,4 +1,4 @@
-package com.example.s1719024_weatherapp;
+package com.jules.maurice.s1719024_weatherapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.s1719024_weatherapp", appContext.getPackageName());
+        assertEquals("com.jules.maurice.s1719024_weatherapp", appContext.getPackageName());
     }
 }
