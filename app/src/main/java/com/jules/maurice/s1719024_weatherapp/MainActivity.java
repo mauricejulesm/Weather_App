@@ -3,6 +3,8 @@ package com.jules.maurice.s1719024_weatherapp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,17 +18,22 @@ import android.view.Menu;
 import android.widget.TextView;
 
 import com.jules.maurice.s1719024_weatherapp.models.NavBarItem;
+import com.jules.maurice.s1719024_weatherapp.ui.mauricePhotos.MauricePhotosFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     // globals
     private DrawerLayout drawer;
+    private TextView placeholderText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // inflating my views
+        inflateMyViews();
 
     }
 
@@ -63,6 +70,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void inflateMyViews() {
+
+        placeholderText = findViewById(R.id.placeholder_text);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -133,7 +143,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void setFragment(Fragment fragment, String fragName){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_layout, fragment, fragName);
+    }
     private void displayMauricePhotosFragment() {
 
+        setTitle("Maurice Photos");
+        setFragment(MauricePhotosFragment.newInstance(), "Maurice Photos");
+        placeholderText.setVisibility(View.INVISIBLE);
     }
 }
