@@ -2,16 +2,16 @@ package com.julesmaurice.S1719024.mpd.models;
 
 public class Weather {
     private String city;
-    private String description;
-    private String degree_celsius;
+    private String minTemp;
+    private String maxTemp;
+    private String humidity;
+    private String time;
+    private String windDirection;
+    private String sunSetting;
+    private String sunRising;
     private String windSpeed;
 
-
-    public Weather(String city, String degree_celsius, String description, String windSpeed) {
-        this.city = city;
-        this.description = description;
-        this.degree_celsius = degree_celsius;
-        this.windSpeed = windSpeed;
+    public Weather() {
     }
 
     public String getCity() {
@@ -22,20 +22,60 @@ public class Weather {
         this.city = city;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMinTemp() {
+        return minTemp;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMinTemp(String minTemp) {
+        this.minTemp = minTemp;
     }
 
-    public String getDegree_celsius() {
-        return degree_celsius;
+    public String getMaxTemp() {
+        return maxTemp;
     }
 
-    public void setDegree_celsius(String degree_celsius) {
-        this.degree_celsius = degree_celsius;
+    public void setMaxTemp(String maxTemp) {
+        this.maxTemp = maxTemp;
+    }
+
+    public String getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(String humidity) {
+        this.humidity = humidity;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getWindDirection() {
+        return windDirection;
+    }
+
+    public void setWindDirection(String windDirection) {
+        this.windDirection = windDirection;
+    }
+
+    public String getSunSetting() {
+        return sunSetting;
+    }
+
+    public void setSunSetting(String sunSetting) {
+        this.sunSetting = sunSetting;
+    }
+
+    public String getSunRising() {
+        return sunRising;
+    }
+
+    public void setSunRising(String sunRising) {
+        this.sunRising = sunRising;
     }
 
     public String getWindSpeed() {

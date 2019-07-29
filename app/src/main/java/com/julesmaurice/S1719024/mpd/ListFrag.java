@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.julesmaurice.S1719024.mpd.dao.WeatherDAO;
 
 
 /**
@@ -45,7 +44,9 @@ View view;
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new WeatherAdapter(this.getActivity(), WeatherDAO.weathers);
+        adapter = new WeatherAdapter(this.getActivity(), MainActivity.weathers);
         recyclerView.setAdapter(adapter);
     }
+
+
 }

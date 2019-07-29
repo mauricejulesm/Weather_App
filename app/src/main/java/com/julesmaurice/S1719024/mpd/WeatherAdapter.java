@@ -31,7 +31,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivWeather;
-        TextView tvCity, tvWind, tvTemp;
+        TextView tvCity, tvWind, tvTemp, tvHumid;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -39,6 +39,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             tvCity = itemView.findViewById(R.id.rowTvCity);
             tvWind = itemView.findViewById(R.id.tvWindSpeed);
             tvTemp = itemView.findViewById(R.id.tvTemp);
+            tvHumid = itemView.findViewById(R.id.tvHumid);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,8 +64,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         holder.itemView.setTag(weathers.get(position));
 
         holder.tvCity.setText(weathers.get(position).getCity());
-        holder.tvWind.setText("Wind: "+weathers.get(position).getWindSpeed());
-        holder.tvTemp.setText(weathers.get(position).getDegree_celsius());
+        holder.tvWind.setText(weathers.get(position).getWindSpeed());
+        holder.tvTemp.setText(weathers.get(position).getMinTemp());
+        holder.tvHumid.setText(weathers.get(position).getHumidity());
 
 //        holder.ivMake.setImageResource(R.drawable.ic_launcher_foreground);
 
@@ -72,6 +74,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     @Override
     public int getItemCount() {
+
+
         return weathers.size();
     }
 }
