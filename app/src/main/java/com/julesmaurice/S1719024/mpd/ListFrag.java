@@ -45,7 +45,7 @@ public class ListFrag extends Fragment {
 
     static Weather weatherObj;
     public static ArrayList<Weather> weathers;
-
+    static ProgressDialog progressDialog;
 
 
     public ListFrag() {
@@ -68,6 +68,8 @@ public class ListFrag extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        //show a progress dialog
+        progressDialog = new ProgressDialog(this.getContext());
         weathers = new ArrayList<>();
 
 
@@ -100,10 +102,6 @@ public class ListFrag extends Fragment {
      */
     public class ProcessInBackground extends AsyncTask<String, Void, String> {
 
-        //show a progress dialog
-        ProgressDialog progressDialog = new ProgressDialog(ListFrag.this.getContext());
-//        Exception exception;
-
         /**
          * Run after the async task is done.
          */
@@ -111,7 +109,7 @@ public class ListFrag extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog.setMessage("Loading weather rss feeds...");
+            progressDialog.setMessage("Loading weather rss feeds... make sure you are connected to internet");
             progressDialog.show();
         }
 
@@ -122,9 +120,9 @@ public class ListFrag extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
 
-            String weatherFeeds = String.valueOf(parseXML(strings[0]));
+            weathers = parseXML(strings[0]);
 
-            return weatherFeeds;
+            return String.valueOf(weathers);
         }
 
         /**

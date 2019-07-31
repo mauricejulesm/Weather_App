@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 
         weathers = ListFrag.weathers;
         // show the first item on the list
-        if (weathers != null) {
+        if (weathers != null && weathers.size() != 0) {
+            ListFrag.progressDialog.dismiss();
             onItemClicked(0);
         }
 
