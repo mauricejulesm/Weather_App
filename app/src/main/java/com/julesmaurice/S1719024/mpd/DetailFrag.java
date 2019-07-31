@@ -6,9 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 /**
+ * Student Name: Jules Maurice Mulisa
+ * Student ID: S1719024
+ * Email: JMULIS200@caledonian.ac.uk
+ *
+ *
+ *
+ * The fragment to show the details for the selected city
  * A simple {@link Fragment} subclass.
  */
 public class DetailFrag extends Fragment {
@@ -19,6 +24,12 @@ public class DetailFrag extends Fragment {
     }
 
 
+    /**
+     * @param inflater the layout inflater
+     * @param container the current view container
+     * @param savedInstanceState the current instance
+     * @return returns the fragment view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

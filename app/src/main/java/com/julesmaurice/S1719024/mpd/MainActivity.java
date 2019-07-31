@@ -1,9 +1,9 @@
 package com.julesmaurice.S1719024.mpd;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.julesmaurice.S1719024.mpd.models.Weather;
@@ -18,6 +18,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Student Name: Jules Maurice Mulisa
+ * Student ID: S1719024
+ * Email: JMULIS200@caledonian.ac.uk
+ */
+
 public class MainActivity extends AppCompatActivity implements WeatherAdapter.ItemClicked{
 
     public static ArrayList<Weather> weathers;
@@ -27,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 
     android.support.v4.app.FragmentManager fragmentManager;
     android.support.v4.app.Fragment listFrag;
-    android.support.v4.app.Fragment ownerInfoFrag;
+    android.support.v4.app.Fragment weatherDetailsFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +42,25 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 
         weathers = new ArrayList<>();
 
+        // setting up the views
         tvDTemp = findViewById(R.id.tvDetailTemp);
         tvDDesc = findViewById(R.id.tvDetailDesc);
         tvCity = findViewById(R.id.tvDetailCity);
 
+
+        // execute the process in the background operation
+        new ProcessInBackground().execute();
+
+
+        // managing the showing and hiding of the fragments
         fragmentManager = getSupportFragmentManager();
 
         listFrag = fragmentManager.findFragmentById(R.id.listFrag);
-        ownerInfoFrag = fragmentManager.findFragmentById(R.id.ownerInfoFrag);
+        weatherDetailsFrag = fragmentManager.findFragmentById(R.id.weatherDetailsFrag);
 
         fragmentManager.beginTransaction()
                 .show(listFrag)
-                .show(ownerInfoFrag)
+                .show(weatherDetailsFrag)
                 .commit();
 
 
@@ -70,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 //            }
 //        });
 
-        new ProcessInBackground().execute();
 
         // show the first item on the list
 //        onItemClicked(0);
@@ -78,7 +90,12 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
     }
 
 
-    // a method to make a connection
+    /**
+     * a method to make a connection
+     * @param urlFeed the url of the online RSS FEED resource
+     * @return returns the stream
+     */
+
     public static InputStream getInputStream(URL urlFeed) {
         try {
             return urlFeed.openConnection().getInputStream();
@@ -90,23 +107,31 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 
 
 
-
-    // using threads in the background
-
+    /**
+     *  Class for using threads in the background
+     *  The inner class to process the async tasks in the background.
+     */
     public class ProcessInBackground extends AsyncTask<Integer, Void, Exception> {
 
         //show a progress dialog
-        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+//        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
         Exception exception;
 
+        /**
+         * Run after the async task is done.
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog.setMessage("Loading weather rss feeds...");
-            progressDialog.show();
+//            progressDialog.setMessage("Loading weather rss feeds...");
+//            progressDialog.show();
         }
 
+        /**
+         * @param integers takes the what you want to pass to the method that parses the data.
+         * @return this exception if there is a error while parsing data.
+         */
         @Override
         protected Exception doInBackground(Integer... integers) {
 
@@ -127,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
                 // looping over xml feeds' items
                 while (eventType != XmlPullParser.END_DOCUMENT) {
                     if (eventType == XmlPullParser.START_TAG) {
-
+                        Log.i("Parsing Xml", xpp.getName());
                         //check  here if the tag is image to retrieve city name
 //                        if (xpp.getName().equalsIgnoreCase("image")) {
 //
@@ -136,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
                         if (xpp.getName().equalsIgnoreCase("item")) {
                             insideItem = true;
                             weatherObj = new Weather();
-
                             weatherObj.setCity("Glasgow City");
 
                         } else if (xpp.getName().equalsIgnoreCase("title")) {
@@ -168,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
                                     sunset = descStrings[10];
                                 }
 
-
+                                // setting the values of the weather object
                                 weatherObj.setWindDirection(windDirection);
                                 weatherObj.setWindSpeed(windSpeed);
                                 weatherObj.setHumidity(humidity);
@@ -178,12 +202,14 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
                             }
                         }
                     } else if (eventType == XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("item")) {
+                        Log.i("End tag", xpp.getName());
                         if (weatherObj != null){
                             weathers.add(weatherObj);
                         }
                         insideItem = false;
                     }
 
+                    // help in going to the next item on the xml file
                     eventType = xpp.next();
                 }
 
@@ -200,10 +226,13 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
             return exception;
         }
 
+        /**
+         * @param s takes what was returned from the do in background method
+         */
         @Override
         protected void onPostExecute(Exception s) {
             super.onPostExecute(s);
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
 
             onItemClicked(0);
 
@@ -214,17 +243,10 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * the method to set the data to the views of the detail view
+     * @param index the position at which the selected card is is
+     */
     @Override
     public void onItemClicked(int index) {
         tvDTemp.setText(weathers.get(index).getMinTemp());

@@ -1,4 +1,12 @@
 package com.julesmaurice.S1719024.mpd.models;
+/**
+ * Student Name: Jules Maurice Mulisa
+ * Student ID: S1719024
+ * Email: JMULIS200@caledonian.ac.uk
+ *
+
+ * the model for the weather object
+ */
 
 public class Weather {
     private String city;

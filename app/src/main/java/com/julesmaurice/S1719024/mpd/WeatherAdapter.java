@@ -13,18 +13,35 @@ import com.julesmaurice.S1719024.mpd.models.Weather;
 
 import java.util.ArrayList;
 
+/**
+ * Student Name: Jules Maurice Mulisa
+ * Student ID: S1719024
+ * Email: JMULIS200@caledonian.ac.uk
+ *
+ *
+ * The adapter class to handle to the weather listing recycler view
+ *
+ */
+
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
     ArrayList<Weather> weathers;
+    private final int layoutResource;
     ItemClicked activity;
 
     public interface ItemClicked {
         void onItemClicked(int index);
     }
 
-    public WeatherAdapter(Context context, ArrayList<Weather> weatherList) {
-        weathers = weatherList;
-        activity = (ItemClicked) context;
+    /**
+     * @param context the current context
+     * @param resource the resource id
+     * @param weatherList the list of weathers available.
+     */
+    public WeatherAdapter(Context context, int resource, ArrayList<Weather> weatherList) {
+        this.weathers = weatherList;
+        this.layoutResource = resource;
+        this.activity = (ItemClicked) context;
 
     }
 
@@ -50,6 +67,11 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         }
     }
 
+    /**
+     * @param viewGroup the current view
+     * @param viewType the type the your view
+     * @return returns the a new view holder object
+     */
     @NonNull
     @Override
     public WeatherAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -59,6 +81,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
         return new ViewHolder(view);
     }
 
+    /**
+     * @param holder the view holder
+     * @param position the position of the just selected view or card on the view
+     */
     @Override
     public void onBindViewHolder(@NonNull WeatherAdapter.ViewHolder holder, int position) {
         holder.itemView.setTag(weathers.get(position));
@@ -72,6 +98,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     }
 
+    /**
+     * @return returns the size of the items on the list of recycler view
+     */
     @Override
     public int getItemCount() {
 

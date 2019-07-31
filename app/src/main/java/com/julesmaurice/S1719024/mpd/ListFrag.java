@@ -11,8 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-
 /**
+  Student Name: Jules Maurice Mulisa
+  Student ID: S1719024
+  Email: JMULIS200@caledonian.ac.uk
+ *
+
+
+ *
  * A simple {@link Fragment} subclass.
  */
 public class ListFrag extends Fragment {
@@ -35,6 +41,10 @@ View view;
     return  view;
     }
 
+    /**
+     *
+     * @param savedInstanceState the current instance
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -44,7 +54,7 @@ View view;
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new WeatherAdapter(this.getActivity(), MainActivity.weathers);
+        adapter = new WeatherAdapter(this.getActivity(), R.layout.row_layout, MainActivity.weathers);
         recyclerView.setAdapter(adapter);
     }
 
