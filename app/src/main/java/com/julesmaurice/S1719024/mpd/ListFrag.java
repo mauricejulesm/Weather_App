@@ -1,6 +1,7 @@
 package com.julesmaurice.S1719024.mpd;
 
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -100,7 +101,7 @@ public class ListFrag extends Fragment {
     public class ProcessInBackground extends AsyncTask<String, Void, String> {
 
         //show a progress dialog
-//        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+        ProgressDialog progressDialog = new ProgressDialog(ListFrag.this.getContext());
 //        Exception exception;
 
         /**
@@ -110,8 +111,8 @@ public class ListFrag extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
 
-//            progressDialog.setMessage("Loading weather rss feeds...");
-//            progressDialog.show();
+            progressDialog.setMessage("Loading weather rss feeds...");
+            progressDialog.show();
         }
 
         /**
@@ -144,7 +145,7 @@ public class ListFrag extends Fragment {
             recyclerView.setAdapter(adapter);
 
 
-//            progressDialog.dismiss();
+            progressDialog.dismiss();
 
 //            onItemClicked(0);
 
