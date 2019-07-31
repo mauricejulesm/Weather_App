@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
         // show the first item on the list
         if (weathers != null && weathers.size() != 0) {
             ListFrag.progressDialog.dismiss();
+
             onItemClicked(0);
         }
 
@@ -99,9 +100,10 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
      */
     @Override
     public void onItemClicked(int index) {
-        tvDTemp.setText(weathers.get(index).getMinTemp());
-        tvDDesc.setText(weathers.get(index).getWindDirection());
-        tvCity.setText(weathers.get(index).getCity());
+
+        tvDTemp.setText(ListFrag.weathers.get(index).getMinTemp());
+        tvDDesc.setText(ListFrag.weathers.get(index).getWindDirection());
+        tvCity.setText(ListFrag.weathers.get(index).getCity());
 
 //        if(WeatherDAO.weathers.get(index).getMake().equals("Volkswagen")){
 //            ivMake.setImageResource(R.drawable.volkswagen);

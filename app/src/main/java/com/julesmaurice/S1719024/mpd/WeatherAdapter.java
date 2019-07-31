@@ -48,12 +48,12 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivWeather;
-        TextView tvCity, tvWind, tvTemp, tvHumid;
+        TextView tvDay, tvWind, tvTemp, tvHumid;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivWeather = itemView.findViewById(R.id.ivWeather);
-            tvCity = itemView.findViewById(R.id.rowTvCity);
+            tvDay = itemView.findViewById(R.id.rowDay);
             tvWind = itemView.findViewById(R.id.tvWindSpeed);
             tvTemp = itemView.findViewById(R.id.tvTemp);
             tvHumid = itemView.findViewById(R.id.tvHumid);
@@ -89,7 +89,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public void onBindViewHolder(@NonNull WeatherAdapter.ViewHolder holder, int position) {
         holder.itemView.setTag(weathers.get(position));
 
-        holder.tvCity.setText(weathers.get(position).getCity());
+        holder.tvDay.setText(weathers.get(position).getDatyOfTheWeek());
         holder.tvWind.setText(weathers.get(position).getWindSpeed());
         holder.tvTemp.setText(weathers.get(position).getMinTemp());
         holder.tvHumid.setText(weathers.get(position).getHumidity());

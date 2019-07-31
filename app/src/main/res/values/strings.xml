@@ -2,12 +2,12 @@
     <string name="app_name">S1719024_WeatherApp</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tvSelectToView">Select a city to view details</string>
-    <string name="defaultDetailCity">Glasgow</string>
-    <string name="defaultDetailDegree">25°C</string>
-    <string name="defaultRowHumidity">Humidity: 58%</string>
-    <string name="defaultRowCityName">Glasgow</string>
-    <string name="defaultRowWind">Wind: 15 mph</string>
+    <string name="hello_blank_fragment">Blank fragment</string>
+    <string name="tvSelectToView">Weather information of the city u select will appear here.</string>
+    <string name="defaultDetailCity">City Name</string>
+    <string name="defaultDetailDegree">---°C</string>
+    <string name="defaultRowHumidity">Humidity: ---%</string>
+    <string name="defaultRowCityName">Day:___</string>
+    <string name="defaultRowWind">Wind: --- mph</string>
     <string name="weatherImageDescritpion">The image resembling the current temperature in the city. i.e: clouds if cloudy or rain if rainy</string>
 </resources>

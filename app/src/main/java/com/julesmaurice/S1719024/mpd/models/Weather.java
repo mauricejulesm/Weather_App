@@ -19,7 +19,12 @@ public class Weather {
     private String sunRising;
     private String windSpeed;
 
+    private String datyOfTheWeek;
+    private String dateOfForecast;
+    private String rainLikelihood;
+
     public Weather() {
+        super();
     }
 
     public String getCity() {
@@ -92,5 +97,29 @@ public class Weather {
 
     public void setWindSpeed(String windSpeed) {
         this.windSpeed = windSpeed;
+    }
+
+    public String getDatyOfTheWeek() {
+        return datyOfTheWeek;
+    }
+
+    public void setDatyOfTheWeek(String datyOfTheWeek) {
+        this.datyOfTheWeek = datyOfTheWeek;
+    }
+
+    public String getDateOfForecast() {
+        return dateOfForecast;
+    }
+
+    public void setDateOfForecast(String dateOfForecast) {
+        this.dateOfForecast = dateOfForecast;
+    }
+
+    public String getRainLikelihood() {
+        return rainLikelihood;
+    }
+
+    public void setRainLikelihood(String rainLikelihood) {
+        this.rainLikelihood = rainLikelihood;
     }
 }
