@@ -17,6 +17,11 @@
     android:baselineAligned="false"
     android:id="@+id/layout_portrait">
 
+    <!--<include-->
+        <!--layout="@layout/app_bar"-->
+        <!--android:id="@+id/app_bar">-->
+    <!--</include>-->
+
     <fragment
         android:id="@+id/listFrag"
         android:name="com.julesmaurice.S1719024.mpd.ListFrag"

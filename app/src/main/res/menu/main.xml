@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/refresh"
+        android:orderInCategory="100"
+        android:title="Refresh"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/refresh8am"
+        android:icon="@drawable/r8am"
+        android:orderInCategory="1001"
+        android:title="8 AM"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/refresh8pm"
+        android:icon="@drawable/r8pm"
+        android:orderInCategory="1002"
+        android:title="8 PM"
+        app:showAsAction="never" />
+</menu>

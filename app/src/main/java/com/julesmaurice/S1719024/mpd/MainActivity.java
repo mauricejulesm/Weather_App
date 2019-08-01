@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.TextView;
 
 import com.julesmaurice.S1719024.mpd.models.Weather;
@@ -40,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        //setting up the custom toolbar
+//        Toolbar toolbar = findViewById(R.id.app_bar);
+//        setSupportActionBar(toolbar);
 
         // setting up the views
         tvDTemp = findViewById(R.id.tvDetailTemp);
@@ -123,4 +128,16 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 
 
     }
+
+
+//    /**
+//     * @param menu the menu layout
+//     * @return options of the menu to the activity
+//     */
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+//
+//        return super.onCreateOptionsMenu(menu);
+//    }
 }

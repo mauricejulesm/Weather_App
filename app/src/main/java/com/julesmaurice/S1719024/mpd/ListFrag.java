@@ -6,11 +6,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionBarContainer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.julesmaurice.S1719024.mpd.models.Weather;
 import com.julesmaurice.S1719024.mpd.dao.XmlWeatherFeedsParser;
@@ -55,6 +62,7 @@ public class ListFrag extends Fragment {
         //retrieving the currency city's location id
 
         currentCityID = HomeActivity.getCurrentCityID();
+        setHasOptionsMenu(true);
 
         view = inflater.inflate(R.layout.fragment_list, container, false);
         return view;
@@ -115,6 +123,8 @@ public class ListFrag extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+            actionBar.setTitle(weathers.get(0).getCity());
 
 
             recyclerView = view.findViewById(R.id.list);
@@ -134,4 +144,34 @@ public class ListFrag extends Fragment {
     }
 
 
+    /**
+     * @param menu the menu layout
+     * @return options of the menu to the activity
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.main, menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.refresh:
+                Toast.makeText(this.getContext(), "Refreshed the RSS Feeds", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.refresh8am:
+                Toast.makeText(this.getContext(), "The RSS Feeds was set to refresh at 8 am", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.refresh8pm:
+                Toast.makeText(this.getContext(), "The RSS Feeds was set to refresh at 8 pm", Toast.LENGTH_LONG).show();
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

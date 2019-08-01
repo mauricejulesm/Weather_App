@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.julesmaurice.S1719024.mpd.models.LocationIdDictionary;
@@ -56,4 +58,5 @@ public class HomeActivity extends AppCompatActivity {
     public static String getCurrentCityID() {
         return currentCityID;
     }
+
 }
