@@ -27,7 +27,6 @@ public class XmlWeatherFeedsParser {
     private static String[] locationIDs = {"5128581", "2648579", "2643743", "287286", "1185241", "934154", "202061"};
 
     private static Weather weatherObj;
-    private static Map<String, ArrayList<Weather>> citiesWeather;
 
     public XmlWeatherFeedsParser() {
 //        citiesWeather = new HashMap<>();
@@ -49,7 +48,7 @@ public class XmlWeatherFeedsParser {
 
     }
 
-    public static ArrayList<Weather> parseXML() {
+    public static ArrayList<Weather> parseXML(String currentCityID) {
 
 
         ArrayList<Weather> weathers = null;
@@ -57,14 +56,11 @@ public class XmlWeatherFeedsParser {
         boolean insideItem = false;
         String currentCityName = "";
 
-        for (int id = 0; id < locationIDs.length; id++) {
-            // create a new map object
-            weathers = new ArrayList<>();
-            citiesWeather = new HashMap<>();
+        weathers = new ArrayList<>();
 
 
             try {
-                URL url = new URL(baseFeedsUrl + locationIDs[id]);
+                URL url = new URL(baseFeedsUrl + currentCityID);
 
                 XmlPullParserFactory pullParserFactory = XmlPullParserFactory.newInstance();
                 pullParserFactory.setNamespaceAware(false);
@@ -143,8 +139,6 @@ public class XmlWeatherFeedsParser {
                     eventType = xpp.next();
                 }
 
-            citiesWeather.put(weathers.get(0).getCity(), weathers);
-
             } catch (MalformedURLException mex) {
                 Log.e("Malformed Url", mex.getMessage());
             } catch (XmlPullParserException xml_ex) {
@@ -152,7 +146,6 @@ public class XmlWeatherFeedsParser {
             } catch (IOException io) {
                 Log.e("IOE on parsing xml", io.getMessage());
             }
-        }
 
         return weathers;
     }

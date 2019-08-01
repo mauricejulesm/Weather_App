@@ -39,6 +39,9 @@ public class ListFrag extends Fragment {
     public static ArrayList<Weather> weathers;
     static ProgressDialog progressDialog;
 
+    //default city id
+    String currentCityID ;
+
 
     public ListFrag() {
         // Required empty public constructor
@@ -48,6 +51,10 @@ public class ListFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //retrieving the currency city's location id
+
+        currentCityID = HomeActivity.getCurrentCityID();
 
         view = inflater.inflate(R.layout.fragment_list, container, false);
         return view;
@@ -66,7 +73,7 @@ public class ListFrag extends Fragment {
 
 
         // execute the process in the background operation
-        new ProcessInBackground().execute();
+        new ProcessInBackground().execute(currentCityID);
 
     }
 
@@ -86,7 +93,7 @@ public class ListFrag extends Fragment {
             super.onPreExecute();
 
             progressDialog.setMessage("Loading weather rss feeds... make sure you are connected to internet");
-//            progressDialog.show();
+            progressDialog.show();
         }
 
         /**
@@ -96,7 +103,7 @@ public class ListFrag extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
 
-            weathers = XmlWeatherFeedsParser.parseXML();
+            weathers = XmlWeatherFeedsParser.parseXML(strings[0]);
 
             return String.valueOf(weathers);
         }

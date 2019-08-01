@@ -1,5 +1,6 @@
 package com.julesmaurice.S1719024.mpd;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,37 +50,33 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 //        // execute the process in the background operation
 //        new ProcessInBackground().execute();
 
-
-        // managing the showing and hiding of the fragments
-        fragmentManager = getSupportFragmentManager();
-
-        listFrag = fragmentManager.findFragmentById(R.id.listFrag);
-        weatherDetailsFrag = fragmentManager.findFragmentById(R.id.weatherDetailsFrag);
-
-        fragmentManager.beginTransaction()
-                .show(listFrag)
-                .show(weatherDetailsFrag)
-                .commit();
+//        String intent = getIntent().getExtras();
 
 
-//        btnOwnerInfo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fragmentManager.beginTransaction()
-//                        .hide(carInfoFrag)
-//                        .show(ownerInfoFrag)
-//                        .commit();
-//            }
-//        });
-//        btnCarInfo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fragmentManager.beginTransaction()
-//                        .show(carInfoFrag)
-//                        .hide(ownerInfoFrag)
-//                        .commit();
-//            }
-//        });
+
+
+        // managing fragments
+
+        //showing weather list only in portrait mode
+        if (findViewById(R.id.layout_portrait) != null) {
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .hide(fragmentManager.findFragmentById(R.id.weatherDetailsFrag))
+                    .show(fragmentManager.findFragmentById(R.id.listFrag))
+                    .commit();
+        }
+
+        //showing weather list only in portrait mode
+        if (findViewById(R.id.layout_land) != null) {
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .show(fragmentManager.findFragmentById(R.id.weatherDetailsFrag))
+                    .show(fragmentManager.findFragmentById(R.id.listFrag))
+                    .commit();
+        }
+
 
 
         weathers = ListFrag.weathers;
@@ -87,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
         if (weathers != null && weathers.size() != 0) {
             ListFrag.progressDialog.dismiss();
 
-            onItemClicked(0);
+//            onItemClicked(0);
         }
 
     }
@@ -112,5 +109,18 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 //        }else {
 //            ivMake.setImageResource(R.drawable.mercedes);
 //        }
+
+        //switch layouts
+        if (findViewById(R.id.layout_portrait) != null) {
+
+            fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .show(fragmentManager.findFragmentById(R.id.weatherDetailsFrag))
+                    .hide(fragmentManager.findFragmentById(R.id.listFrag))
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+
     }
 }

@@ -15,7 +15,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:baselineAligned="false"
-    android:id="@+id/layout_portrait">
+    android:id="@+id/layout_land">
 
     <fragment
         android:id="@+id/listFrag"

@@ -3,11 +3,18 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Blank fragment</string>
-    <string name="tvSelectToView">Weather information of the city u select will appear here.</string>
+    <string name="tvSelectToView">Select a city to view its detailed weather info here.</string>
     <string name="defaultDetailCity">City Name</string>
     <string name="defaultDetailDegree">---°C</string>
     <string name="defaultRowHumidity">Humidity: ---%</string>
     <string name="defaultRowCityName">Day:___</string>
     <string name="defaultRowWind">Wind: --- mph</string>
     <string name="weatherImageDescritpion">The image resembling the current temperature in the city. i.e: clouds if cloudy or rain if rainy</string>
+    <string name="glasgow_gb">Glasgow, GB</string>
+    <string name="muscat_om">Muscat, OM</string>
+    <string name="london_gb">London, GB</string>
+    <string name="new_york_us">New York, US</string>
+    <string name="port_louis_mu">Port Louis, MU</string>
+    <string name="dhaka_bd">Dhaka, BD</string>
+    <string name="kigali_rw">Kigali, Rw</string>
 </resources>
