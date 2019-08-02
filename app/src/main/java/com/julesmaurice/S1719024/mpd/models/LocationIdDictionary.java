@@ -18,13 +18,13 @@ public class LocationIdDictionary {
     public static String getIDsDictionary(String cityName) {
 
         // put cities id
-        iDsDictionary.put("Glasgow", "2648579");
-        iDsDictionary.put("London", "2643743");
-        iDsDictionary.put("NY", "5128581");
-        iDsDictionary.put("Oman", "287286");
-        iDsDictionary.put("MU", "934154");
-        iDsDictionary.put("Bang", "1185241");
-        iDsDictionary.put("Kigali", "202061");
+        iDsDictionary.put("Glasgow, GB", "2648579");
+        iDsDictionary.put("London, GB", "2643743");
+        iDsDictionary.put("New York, US", "5128581");
+        iDsDictionary.put("Muscat, OM", "287286");
+        iDsDictionary.put("Port Louis, MU", "934154");
+        iDsDictionary.put("Dhaka, BD", "1185241");
+        iDsDictionary.put("Kigali, RW", "202061");
 
         return LocationIdDictionary.iDsDictionary.get(cityName).trim();
     }

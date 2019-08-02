@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:tag="Glasgow"
+                    android:tag="Glasgow, GB"
                     android:text="@string/glasgow_gb"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:tag="Oman"
+                    android:tag="Muscat, OM"
                     android:text="@string/muscat_om"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:tag="London"
+                    android:tag="London, GB"
                     android:text="@string/london_gb"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:tag="NY"
+                    android:tag="New York, US"
                     android:text="@string/new_york_us"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:tag="MU"
+                    android:tag="Port Louis, MU"
                     android:text="@string/port_louis_mu"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:tag="Bang"
+                    android:tag="Dhaka, BD"
                     android:text="@string/dhaka_bd"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />
@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:tag="Kigali"
+                    android:tag="Kigali, Rw"
                     android:text="@string/kigali_rw"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />

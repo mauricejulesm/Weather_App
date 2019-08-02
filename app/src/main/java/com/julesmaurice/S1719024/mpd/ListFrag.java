@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ActionBarContainer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,13 +46,18 @@ public class ListFrag extends Fragment {
     static ProgressDialog progressDialog;
 
     //default city id
-    String currentCityID ;
+    static String currentCityID;
 
 
     public ListFrag() {
-        // Required empty public constructor
+        // default recommended constructor
     }
 
+
+    public static ListFrag newInstance(String id) {
+        currentCityID = id;
+        return new ListFrag();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +65,6 @@ public class ListFrag extends Fragment {
 
         //retrieving the currency city's location id
 
-        currentCityID = HomeActivity.getCurrentCityID();
         setHasOptionsMenu(true);
 
         view = inflater.inflate(R.layout.fragment_list, container, false);
@@ -75,16 +78,19 @@ public class ListFrag extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
         //show a progress dialog
         progressDialog = new ProgressDialog(this.getContext());
-//        weathers = new ArrayList<>();
-
 
         // execute the process in the background operation
         new ProcessInBackground().execute(currentCityID);
 
-    }
 
+//        weathers = new ArrayList<>();
+
+
+
+    }
 
 
     /**
@@ -123,8 +129,8 @@ public class ListFrag extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-            actionBar.setTitle(weathers.get(0).getCity());
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            actionBar.setTitle("Weather in "+weathers.get(0).getCity());
 
 
             recyclerView = view.findViewById(R.id.list);
@@ -159,7 +165,7 @@ public class ListFrag extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.refresh:
                 Toast.makeText(this.getContext(), "Refreshed the RSS Feeds", Toast.LENGTH_SHORT).show();
                 break;

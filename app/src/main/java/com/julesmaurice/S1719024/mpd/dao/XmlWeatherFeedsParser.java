@@ -86,7 +86,7 @@ public class XmlWeatherFeedsParser {
                         if (currentTagName.equalsIgnoreCase("item")) {
                             insideItem = true;
                             weatherObj = new Weather();
-                            weatherObj.setCity("Weather in "+currentCityName);
+                            weatherObj.setCity(currentCityName);
 
                         } else if (currentTagName.equalsIgnoreCase("title")) {
                             if (insideItem) {

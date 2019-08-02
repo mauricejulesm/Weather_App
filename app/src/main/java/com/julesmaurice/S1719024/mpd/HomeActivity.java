@@ -33,19 +33,17 @@ public class HomeActivity extends AppCompatActivity {
         cvGlasgow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this,
-                        com.julesmaurice.S1719024.mpd.MainActivity.class);
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
 
                 // retrieving the location specific id from (city, id) dictionary
-                currentCityID = LocationIdDictionary.getIDsDictionary(cvGlasgow.getChildAt(0).getTag().toString());
+                ListFrag.newInstance(LocationIdDictionary.getIDsDictionary(cvGlasgow.getChildAt(0).getTag().toString()));
                 startActivity(intent);
             }
         });
         cvNY.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this,
-                        com.julesmaurice.S1719024.mpd.MainActivity.class);
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
 
                 // retrieving the location specific id from (city, id) dictionary
                 currentCityID = LocationIdDictionary.getIDsDictionary(cvNY.getChildAt(0).getTag().toString());
@@ -57,6 +55,18 @@ public class HomeActivity extends AppCompatActivity {
 
     public static String getCurrentCityID() {
         return currentCityID;
+    }
+
+
+    /**
+     * @param menu the menu layout
+     * @return options of the menu to the activity
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
 }
