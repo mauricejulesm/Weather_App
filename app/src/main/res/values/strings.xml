@@ -3,18 +3,24 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Blank fragment</string>
-    <string name="tvSelectToView">Select a city to view its detailed weather info here.</string>
+    <string name="tvSelectToView">Select a day to view its detailed weather info here.</string>
     <string name="defaultDetailCity">City Name</string>
     <string name="defaultDetailDegree">---°C</string>
     <string name="defaultRowHumidity">Humidity: ---%</string>
     <string name="defaultRowCityName">Day:___</string>
     <string name="defaultRowWind">Wind: --- mph</string>
     <string name="weatherImageDescritpion">The image resembling the current temperature in the city. i.e: clouds if cloudy or rain if rainy</string>
-    <string name="glasgow_gb">Glasgow, GB</string>
-    <string name="muscat_om">Muscat, OM</string>
-    <string name="london_gb">London, GB</string>
-    <string name="new_york_us">New York, US</string>
-    <string name="port_louis_mu">Port Louis, MU</string>
-    <string name="dhaka_bd">Dhaka, BD</string>
-    <string name="kigali_rw">Kigali, Rw</string>
+    <string name="glasgow_gb">Glasgow, Great Britain</string>
+    <string name="muscat_om">Muscat, Oman</string>
+    <string name="london_gb">London, Great Britain</string>
+    <string name="new_york_us">New York, United Sates</string>
+    <string name="port_louis_mu">Port Louis, Mauritius</string>
+    <string name="dhaka_bd">Dhaka, Bangladesh</string>
+    <string name="kigali_rw">Kigali, Rwanda (Home Town)</string>
+    <string name="use_c_format">Use °C format</string>
+    <string name="use_f_format">Use °F Format</string>
+    <string name="refresh_at_0800">Refresh at 0800</string>
+    <string name="refresh_at_20_00">Refresh at 20.00</string>
+    <string name="refresh_now">Refresh Now</string>
+    <string name="date_of_week">Date Of Week: _ _ _</string>
 </resources>

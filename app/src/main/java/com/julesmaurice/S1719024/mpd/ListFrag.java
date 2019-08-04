@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.julesmaurice.S1719024.mpd.models.Weather;
-import com.julesmaurice.S1719024.mpd.dao.XmlWeatherFeedsParser;
+import com.julesmaurice.S1719024.mpd.dao.WeatherXmlFeedsParser;
 
 import java.util.ArrayList;
 
@@ -41,12 +41,14 @@ public class ListFrag extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     View view;
 
-    static Weather weatherObj;
     public static ArrayList<Weather> weathers;
     static ProgressDialog progressDialog;
 
     //default city id
     static String currentCityID;
+
+    //checking refreshTime
+    boolean refreshInMorning = true;
 
 
     public ListFrag() {
@@ -54,19 +56,22 @@ public class ListFrag extends Fragment {
     }
 
 
-    public static ListFrag newInstance(String id) {
+    /**
+     * @param id the id of the city to be displayed
+     */
+    public static void newInstance(String id) {
         currentCityID = id;
-        return new ListFrag();
+        new ListFrag();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //retrieving the currency city's location id
-
+        // making sure that the fragment can show menu
         setHasOptionsMenu(true);
 
+        // inflating the fragment to the view
         view = inflater.inflate(R.layout.fragment_list, container, false);
         return view;
     }
@@ -79,25 +84,19 @@ public class ListFrag extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        //show a progress dialog
+        //initializing the new progress dialog
         progressDialog = new ProgressDialog(this.getContext());
-
+        //processor
         // execute the process in the background operation
-        new ProcessInBackground().execute(currentCityID);
-
-
-//        weathers = new ArrayList<>();
-
-
-
+        // this process runs in the background on a different thread and it doesn't hinder other processes.
+        new BackgroundTasksProcessor().execute(currentCityID);
     }
-
 
     /**
      * Class for using threads in the background
      * The inner class to process the async tasks in the background.
      */
-    public class ProcessInBackground extends AsyncTask<String, Void, String> {
+    public class BackgroundTasksProcessor extends AsyncTask<String, Void, String> {
 
         /**
          * Run after the async task is done.
@@ -105,9 +104,8 @@ public class ListFrag extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            progressDialog.setMessage("Loading weather rss feeds... make sure you are connected to internet");
-            progressDialog.show();
+            progressDialog.setMessage("Loading feeds... make sure you're connected to internet");
+//            progressDialog.show();
         }
 
         /**
@@ -116,13 +114,14 @@ public class ListFrag extends Fragment {
          */
         @Override
         protected String doInBackground(String... strings) {
-
-            weathers = XmlWeatherFeedsParser.parseXML(strings[0]);
+            weathers = WeatherXmlFeedsParser.parseWeatherXML(strings[0]);
 
             return String.valueOf(weathers);
         }
 
         /**
+         * This method is called when the do in background is finished and it is the safest place to assing returned values/feeds to the views.
+         *
          * @param s takes what was returned from the do in background method
          */
         @Override
@@ -130,9 +129,11 @@ public class ListFrag extends Fragment {
             super.onPostExecute(s);
 
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            actionBar.setTitle("Weather in "+weathers.get(0).getCity());
+            if (actionBar != null) {
+                actionBar.setTitle("Weather in " + weathers.get(0).getCity());
+            }
 
-
+            // assigning the returned data feeds to the recycler view of the weather.
             recyclerView = view.findViewById(R.id.list);
             recyclerView.setHasFixedSize(true);
             layoutManager = new LinearLayoutManager(ListFrag.this.getActivity());
@@ -141,14 +142,9 @@ public class ListFrag extends Fragment {
             adapter = new WeatherAdapter(ListFrag.this.getActivity(), R.layout.row_layout, weathers);
             recyclerView.setAdapter(adapter);
 
-
-            progressDialog.dismiss();
-
-//            onItemClicked(0);
-
+//            progressDialog.dismiss();
         }
     }
-
 
     /**
      * @param menu the menu layout
@@ -159,6 +155,11 @@ public class ListFrag extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.main, menu);
+        MenuItem nightRefresh = menu.findItem(R.id.refresh8pm);
+
+        if (refreshInMorning = false){
+            nightRefresh.setChecked(true);
+        }
 
     }
 
@@ -167,12 +168,16 @@ public class ListFrag extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.refresh:
+                item.setChecked(true);
                 Toast.makeText(this.getContext(), "Refreshed the RSS Feeds", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.refresh8am:
+                item.setChecked(true);
                 Toast.makeText(this.getContext(), "The RSS Feeds was set to refresh at 8 am", Toast.LENGTH_LONG).show();
                 break;
             case R.id.refresh8pm:
+                item.setChecked(true);
+                refreshInMorning = false;
                 Toast.makeText(this.getContext(), "The RSS Feeds was set to refresh at 8 pm", Toast.LENGTH_LONG).show();
                 break;
 

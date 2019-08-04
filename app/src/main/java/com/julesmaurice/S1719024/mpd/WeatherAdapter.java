@@ -17,10 +17,9 @@ import java.util.ArrayList;
  * Student Name: Jules Maurice Mulisa
  * Student ID: S1719024
  * Email: JMULIS200@caledonian.ac.uk
- *
- *
+ * <p>
+ * <p>
  * The adapter class to handle to the weather listing recycler view
- *
  */
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
@@ -34,8 +33,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     }
 
     /**
-     * @param context the current context
-     * @param resource the resource id
+     * @param context     the current context
+     * @param resource    the resource id
      * @param weatherList the list of weathers available.
      */
     public WeatherAdapter(Context context, int resource, ArrayList<Weather> weatherList) {
@@ -48,14 +47,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivWeather;
-        TextView tvDay, tvWind, tvTemp, tvHumid;
+        TextView tvDay, tvWindSpeed, tvMinTemp, tvHumid, tvPubDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivWeather = itemView.findViewById(R.id.ivWeather);
             tvDay = itemView.findViewById(R.id.rowDay);
-            tvWind = itemView.findViewById(R.id.tvWindSpeed);
-            tvTemp = itemView.findViewById(R.id.tvTemp);
+            tvPubDate = itemView.findViewById(R.id.tvDateOfWeek);
+            tvWindSpeed = itemView.findViewById(R.id.tvWindSpeed);
+            tvMinTemp = itemView.findViewById(R.id.tvMinTemp);
             tvHumid = itemView.findViewById(R.id.tvHumid);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
     /**
      * @param viewGroup the current view
-     * @param viewType the type the your view
+     * @param viewType  the type the your view
      * @return returns the a new view holder object
      */
     @NonNull
@@ -82,19 +82,42 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     }
 
     /**
-     * @param holder the view holder
+     * @param holder   the view holder
      * @param position the position of the just selected view or card on the view
      */
     @Override
     public void onBindViewHolder(@NonNull WeatherAdapter.ViewHolder holder, int position) {
         holder.itemView.setTag(weathers.get(position));
 
-        holder.tvDay.setText(weathers.get(position).getDatyOfTheWeek());
-        holder.tvWind.setText(weathers.get(position).getWindSpeed());
-        holder.tvTemp.setText(weathers.get(position).getMinTemp());
+        String today = weathers.get(position).getDayOfTheWeek();
+
+        holder.tvDay.setText(today);
+        holder.tvPubDate.setText(weathers.get(position).getDateOfForecast());
+        holder.tvWindSpeed.setText(weathers.get(position).getWindSpeed());
+        holder.tvMinTemp.setText(weathers.get(position).getMinTemp());
         holder.tvHumid.setText(weathers.get(position).getHumidity());
 
-//        holder.ivMake.setImageResource(R.drawable.ic_launcher_foreground);
+        // setting weather icon depending on the day's weather
+
+        if (today.contains("Partly Cloudy")) {
+            holder.ivWeather.setImageResource(R.drawable.partly_cloudy);
+        } else if (today.contains("Sunny Intervals")) {
+            holder.ivWeather.setImageResource(R.drawable.sunny_intervals);
+        } else if (today.contains("Thundery Showers")) {
+            holder.ivWeather.setImageResource(R.drawable.thundery_showers);
+        } else if (today.contains("Light Rain")) {
+            holder.ivWeather.setImageResource(R.drawable.light_rain);
+        } else if (today.contains("Sunny")) {
+            holder.ivWeather.setImageResource(R.drawable.sunny);
+        } else if (today.contains("Light Cloud")) {
+            holder.ivWeather.setImageResource(R.drawable.light_cloud);
+        } else if (today.contains("Mist")) {
+            holder.ivWeather.setImageResource(R.drawable.mist_w);
+        } else if (today.contains("Clear Sky")) {
+            holder.ivWeather.setImageResource(R.drawable.clear_sky);
+        } else {
+            holder.ivWeather.setImageResource(R.drawable.default_icon);
+        }
 
     }
 

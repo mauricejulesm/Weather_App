@@ -18,10 +18,13 @@ public class Weather {
     private String sunSetting;
     private String sunRising;
     private String windSpeed;
+    private String pressure;
 
-    private String datyOfTheWeek;
+    private String dayOfTheWeek;
     private String dateOfForecast;
     private String rainLikelihood;
+    private String visibility;
+    private String pollution;
 
     public Weather() {
         super();
@@ -99,12 +102,12 @@ public class Weather {
         this.windSpeed = windSpeed;
     }
 
-    public String getDatyOfTheWeek() {
-        return datyOfTheWeek;
+    public String getDayOfTheWeek() {
+        return dayOfTheWeek;
     }
 
-    public void setDatyOfTheWeek(String datyOfTheWeek) {
-        this.datyOfTheWeek = datyOfTheWeek;
+    public void setDayOfTheWeek(String dayOfTheWeek) {
+        this.dayOfTheWeek = dayOfTheWeek;
     }
 
     public String getDateOfForecast() {
@@ -121,5 +124,29 @@ public class Weather {
 
     public void setRainLikelihood(String rainLikelihood) {
         this.rainLikelihood = rainLikelihood;
+    }
+
+    public String getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(String pressure) {
+        this.pressure = pressure;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+
+    }
+
+    public void setPollution(String pollution) {
+        this.pollution = pollution;
+    }
+
+    public String getPollution() {
+        return pollution;
+    }
+    public String getVisitility() {
+        return visibility;
     }
 }

@@ -6,18 +6,17 @@
         android:id="@+id/refresh"
         android:icon="@drawable/refresh"
         android:orderInCategory="100"
-        android:title="Refresh"
+        android:title="@string/refresh_now"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/refresh8am"
-        android:icon="@drawable/r8am"
-        android:orderInCategory="1001"
-        android:title="8 AM"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/refresh8pm"
-        android:icon="@drawable/r8pm"
-        android:orderInCategory="1002"
-        android:title="8 PM"
-        app:showAsAction="never" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/refresh8am"
+            android:title="@string/refresh_at_0800"
+            android:checked="true"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/refresh8pm"
+            android:title="@string/refresh_at_20_00"
+            app:showAsAction="never" />
+    </group>
 </menu>
