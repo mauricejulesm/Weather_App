@@ -104,7 +104,7 @@ public class WeatherXmlFeedsParser {
                                 humidity = descStrings[5].trim();
                                 sunset = descStrings[8].trim();
                             } else {
-                                maxTemp = descStrings[0].substring(0, 25).trim();
+                                maxTemp = descStrings[0].substring(21, 25).trim();
                                 windDirection = descStrings[2].trim();
                                 windSpeed = descStrings[3].trim();
                                 visibility = descStrings[4].trim();

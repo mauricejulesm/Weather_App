@@ -15,6 +15,15 @@
     android:background="#3949AB"
     tools:context=".ListFrag">
 
+    <TextView
+        android:id="@+id/tvListMatric"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="@string/matric"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"

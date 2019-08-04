@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.julesmaurice.S1719024.mpd.models.LocationIdDictionary;
 
@@ -22,8 +25,11 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements WeatherAdapter.ItemClicked {
 
-    ImageView ivWeather;
+    //checking refreshTime
+    boolean refreshInMorning = true;
+
     // views on the layout
+    ImageView ivWeather;
     TextView tvDDesc, tvDayOfWeek, tvWindDir, tvWindSpeed, tvPress,
             tvMinTemp, tvHumid, tvMaxTemp, tvSunRise, tvSunset, tvVisibility;
     FloatingActionButton nextBtn, prevBtn;
@@ -48,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
         tvWindDir = findViewById(R.id.tvWindDirection);
         tvWindSpeed = findViewById(R.id.tvWindSpeed);
         tvPress = findViewById(R.id.tvPressure);
-        tvMaxTemp = findViewById(R.id.tvMaxTemp);
+        tvMinTemp = findViewById(R.id.tvMinTemp);
         tvSunRise = findViewById(R.id.tvSunRise);
         tvSunset = findViewById(R.id.tvSunSet);
-        tvMinTemp = findViewById(R.id.tvMinTemp);
+        tvMaxTemp = findViewById(R.id.tvMaxTemp);
         tvHumid = findViewById(R.id.tvHumid);
         tvVisibility = findViewById(R.id.tvVisib);
 
@@ -71,9 +77,10 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
                 }
                 //activity with the new city's info
                 ListFrag.newInstance(ids[currentIndex + 1]);
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
+                Intent intent = getIntent();
                 finish();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
                 Log.i("Next", "Going to the next city");
             }
         });
@@ -87,16 +94,16 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
                 }
                 //activity with the new city's info
                 ListFrag.newInstance(ids[currentIndex - 1]);
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
+                Intent intent = getIntent();
                 finish();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
                 Log.i("Prev", "Going to the prev city");
             }
         });
 
         //showing weather list only in portrait mode
         if (findViewById(R.id.layout_portrait) != null) {
-
             fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .hide(fragmentManager.findFragmentById(R.id.weatherDetailsFrag))
@@ -106,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 
         //showing weather list only in portrait mode
         if (findViewById(R.id.layout_land) != null) {
-
+            findViewById(R.id.tvDetailMatric).setVisibility(View.GONE);
+            findViewById(R.id.cvDetails).setVisibility(View.GONE);
             fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .show(fragmentManager.findFragmentById(R.id.weatherDetailsFrag))
@@ -139,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
     @Override
     public void onItemClicked(int index) {
         String today = ListFrag.weathers.get(index).getDayOfTheWeek();
+        String maxT = ListFrag.weathers.get(index).getMaxTemp();
+        String sunrise = ListFrag.weathers.get(index).getSunRising();
 
         tvDDesc.setVisibility(View.GONE);
         tvDayOfWeek.setText(today);
@@ -146,10 +156,19 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
         tvWindSpeed.setText(ListFrag.weathers.get(index).getWindSpeed());
         tvPress.setText(ListFrag.weathers.get(index).getPressure());
         tvHumid.setText(ListFrag.weathers.get(index).getHumidity());
-        tvMinTemp.setText(ListFrag.weathers.get(index).getMinTemp());
-        tvMaxTemp.setText(ListFrag.weathers.get(index).getMaxTemp());
+
+        if (maxT.equalsIgnoreCase("")) {
+            tvMinTemp.setText("Max Temperature: _ _ _ ");
+            tvMaxTemp.setText(ListFrag.weathers.get(index).getMinTemp());
+        } else {
+            tvMinTemp.setText("Min Temperature:"+ListFrag.weathers.get(index).getMinTemp());
+        }
+        if (sunrise.equalsIgnoreCase("")) {
+            tvSunRise.setText("Sunrise: _ _ _");
+        } else {
+            tvSunRise.setText(ListFrag.weathers.get(index).getSunRising());
+        }
         tvSunset.setText(ListFrag.weathers.get(index).getSunSetting());
-        tvSunRise.setText(ListFrag.weathers.get(index).getSunRising());
         tvVisibility.setText(ListFrag.weathers.get(index).getVisitility());
 
 
@@ -169,12 +188,11 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
             ivWeather.setImageResource(R.drawable.mist_w);
         } else if (today.contains("Clear Sky")) {
             ivWeather.setImageResource(R.drawable.clear_sky);
+        } else if (today.contains("Drizzle")) {
+            ivWeather.setImageResource(R.drawable.drizzle);
         } else {
             ivWeather.setImageResource(R.drawable.default_icon);
         }
-
-
-
 
 
         //switch layouts
@@ -184,8 +202,8 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 
             fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .show(fragmentManager.findFragmentById(R.id.weatherDetailsFrag))
                     .hide(fragmentManager.findFragmentById(R.id.listFrag))
+                    .show(fragmentManager.findFragmentById(R.id.weatherDetailsFrag))
                     .addToBackStack(null)
                     .commit();
         }
@@ -193,5 +211,56 @@ public class MainActivity extends AppCompatActivity implements WeatherAdapter.It
 
     }
 
+    /**
+     * @param menu the menu layout
+     * @return options of the menu to the activity
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem nightRefresh = menu.findItem(R.id.refresh8pm);
+
+        if (refreshInMorning = false) {
+            nightRefresh.setChecked(true);
+        }
+
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                refreshWeatherNow();
+                item.setChecked(true);
+                Toast.makeText(this, "Refreshed the RSS Feeds", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.refresh8am:
+                item.setChecked(true);
+                Toast.makeText(this, "The RSS Feeds was set to refresh at 8 am", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.refresh8pm:
+                item.setChecked(true);
+                refreshInMorning = false;
+                Toast.makeText(this, "The RSS Feeds was set to refresh at 8 pm", Toast.LENGTH_LONG).show();
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     * Refreshes the weather of the current city
+     */
+    public void refreshWeatherNow() {
+        ListFrag.newInstance(ListFrag.currentCityID);
+        ListFrag fragment = (ListFrag) getSupportFragmentManager().findFragmentById(R.id.listFrag);
+        fragment.refreshWeatherInfo();
+    }
 
 }

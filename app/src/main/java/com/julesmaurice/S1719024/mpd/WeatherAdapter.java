@@ -47,7 +47,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivWeather;
-        TextView tvDay, tvWindSpeed, tvMinTemp, tvHumid, tvPubDate;
+        TextView tvDay, tvWindSpeed, tvTemp, tvHumid, tvPubDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -55,7 +55,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             tvDay = itemView.findViewById(R.id.rowDay);
             tvPubDate = itemView.findViewById(R.id.tvDateOfWeek);
             tvWindSpeed = itemView.findViewById(R.id.tvWindSpeed);
-            tvMinTemp = itemView.findViewById(R.id.tvMinTemp);
+            tvTemp = itemView.findViewById(R.id.tvMaxTemp);
             tvHumid = itemView.findViewById(R.id.tvHumid);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -88,13 +88,18 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull WeatherAdapter.ViewHolder holder, int position) {
         holder.itemView.setTag(weathers.get(position));
-
         String today = weathers.get(position).getDayOfTheWeek();
+        String maxT = weathers.get(position).getMaxTemp();
 
         holder.tvDay.setText(today);
         holder.tvPubDate.setText(weathers.get(position).getDateOfForecast());
         holder.tvWindSpeed.setText(weathers.get(position).getWindSpeed());
-        holder.tvMinTemp.setText(weathers.get(position).getMinTemp());
+        if (maxT.equalsIgnoreCase("")) {
+            maxT = weathers.get(position).getMinTemp();
+        } else {
+            maxT = weathers.get(position).getMaxTemp();
+        }
+        holder.tvTemp.setText(maxT);
         holder.tvHumid.setText(weathers.get(position).getHumidity());
 
         // setting weather icon depending on the day's weather
@@ -115,6 +120,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
             holder.ivWeather.setImageResource(R.drawable.mist_w);
         } else if (today.contains("Clear Sky")) {
             holder.ivWeather.setImageResource(R.drawable.clear_sky);
+        } else if (today.contains("Drizzle")) {
+            holder.ivWeather.setImageResource(R.drawable.drizzle);
         } else {
             holder.ivWeather.setImageResource(R.drawable.default_icon);
         }
@@ -126,7 +133,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
      */
     @Override
     public int getItemCount() {
-
 
         return weathers.size();
     }

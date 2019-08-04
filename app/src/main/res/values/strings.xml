@@ -23,4 +23,6 @@
     <string name="refresh_at_20_00">Refresh at 20.00</string>
     <string name="refresh_now">Refresh Now</string>
     <string name="date_of_week">Date Of Week: _ _ _</string>
+    <string name="gcu_campus_weather_app">GCU Campus Weather App</string>
+    <string name="matric">Matric Number: S1719024</string>
 </resources>

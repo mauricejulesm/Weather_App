@@ -11,15 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.julesmaurice.S1719024.mpd.models.Weather;
 import com.julesmaurice.S1719024.mpd.dao.WeatherXmlFeedsParser;
+import com.julesmaurice.S1719024.mpd.models.Weather;
 
 import java.util.ArrayList;
 
@@ -104,29 +100,37 @@ public class ListFrag extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             progressDialog.setMessage("Loading feeds... make sure you're connected to internet");
-//            progressDialog.show();
+            progressDialog.show();
+
+
         }
 
         /**
+         * This method runs on a different thread in the background to make the usability smooth and don't hinder the display of the views.
+         *
          * @param strings takes the what you want to pass to the method that parses the data.
          * @return this exception if there is a error while parsing data.
          */
         @Override
         protected String doInBackground(String... strings) {
+
             weathers = WeatherXmlFeedsParser.parseWeatherXML(strings[0]);
 
             return String.valueOf(weathers);
         }
 
         /**
-         * This method is called when the do in background is finished and it is the safest place to assing returned values/feeds to the views.
+         * This method is called when the do in background is finished and
+         * it is the safest place to arsing returned values/feeds to the views.
          *
          * @param s takes what was returned from the do in background method
          */
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            progressDialog.dismiss();
 
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             if (actionBar != null) {
@@ -142,47 +146,10 @@ public class ListFrag extends Fragment {
             adapter = new WeatherAdapter(ListFrag.this.getActivity(), R.layout.row_layout, weathers);
             recyclerView.setAdapter(adapter);
 
-//            progressDialog.dismiss();
         }
     }
 
-    /**
-     * @param menu the menu layout
-     * @return options of the menu to the activity
-     */
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        inflater.inflate(R.menu.main, menu);
-        MenuItem nightRefresh = menu.findItem(R.id.refresh8pm);
-
-        if (refreshInMorning = false){
-            nightRefresh.setChecked(true);
-        }
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.refresh:
-                item.setChecked(true);
-                Toast.makeText(this.getContext(), "Refreshed the RSS Feeds", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.refresh8am:
-                item.setChecked(true);
-                Toast.makeText(this.getContext(), "The RSS Feeds was set to refresh at 8 am", Toast.LENGTH_LONG).show();
-                break;
-            case R.id.refresh8pm:
-                item.setChecked(true);
-                refreshInMorning = false;
-                Toast.makeText(this.getContext(), "The RSS Feeds was set to refresh at 8 pm", Toast.LENGTH_LONG).show();
-                break;
-
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+    public void refreshWeatherInfo(){
+        BackgroundTasksProcessor bp = new BackgroundTasksProcessor();
+        bp.execute(currentCityID);    }
 }
